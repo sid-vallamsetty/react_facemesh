@@ -1,7 +1,5 @@
 import React, { useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { drawMesh } from './utilities';
 import './App.css'
 
 import * as tf from '@tensorflow/tfjs';
@@ -20,7 +18,7 @@ function App() {
 
     setInterval(() => {
       detect(net)
-    }, 100)
+    }, 50)
   }
 
   const detect = async (net) => {
@@ -40,6 +38,9 @@ function App() {
 
       const face = await net.estimateFaces(video);
       console.log(face);
+
+      const ctx = canvasRef.current.getContext("2d");
+      drawMesh(face, ctx);
     }
   }
 
